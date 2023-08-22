@@ -1,8 +1,8 @@
 ////////////////BASE, DEFAULTS, FONTS, VARIABLES//////////////
 //Base webpage colours
-$color-primary:#333645;
-$color-secondary:#323544;
-$color-tertiary:#212330;
+$color-primary:#110d16;
+$color-secondary:#1c0f2c;
+$color-tertiary:#3a3939;
 //Social media colours
 $color-facebook:#3b5998;
 $color-linkedin:#0077b5;
@@ -50,11 +50,12 @@ $color-themes: (
 
 *{
     box-sizing: border-box;
+    color:white;
 }
 html{
   font-family: Poppins;
   font-size: 16px;
-  background-color: red;
+  background-color:$color-primary;
 }
 ul{
   padding:0;
@@ -75,6 +76,7 @@ body {
   font-family: Poppins,sans-serif;
   font-size: 1rem;
   letter-spacing: .4px;
+  margin:0;
 }
 
 .h2, .h3, .h4, h2, h3, h4{
@@ -83,5 +85,5 @@ body {
     margin-right: 0px;
     margin-bottom: 15px;
     margin-left: 0px;
-    color: $color-primary;
+    color:white;
 }

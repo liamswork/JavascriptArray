@@ -1,0 +1,35 @@
+//FOOTER STYLING
+    //FOOTER BOTTOM BOX
+    .footer-bottom{
+        color:#fff;
+        width: 100%;
+        background-color:$color-secondary;
+        display:flex;
+        justify-content: center;
+        margin:15px 0 0 0;
+
+        .inner{
+            padding:5px 25px;
+            margin:0 15px;
+            .nav-link-container{
+                display:flex;
+                flex-direction: column;
+                @media (min-width:768px) {
+                    flex-direction: row;
+                }
+                align-items: center;
+                a{
+                    margin-right:15px;
+                    text-decoration: none;
+                    h2{
+                        font-size: 16px;
+                        margin:10px 0;
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+        
