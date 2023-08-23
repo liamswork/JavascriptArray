@@ -1,22 +1,38 @@
-#new-button{
-    color:red;
+.image-form{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    button{
+        margin:10px 0;
+        color:red;
+        width:50%
+    }
+
+    form{
+        width:100%
+    }
+    
+    select{
+        text-align: center;
+        color:black;
+        width:50%;
+        option{
+            color:black;
+        }
+    }
 }
 
-button{
-    margin:10px 0;
-}
 
-select{
-    text-align: center;
-    color:black;
-}
 
 .image-sender{
     #email{
         width:100%;
+        color:black;
     }
     #add-email{
         color:red;
+        margin-bottom:10px;
     }
     input{
         text-align: center;
