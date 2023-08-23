@@ -27,9 +27,40 @@
             <div class="main">
                 <div class="inner">
                     <div class="content-container image-sender clearfix">
-                        <div class="title-box"><p>Box Title</p></div>
-                        <div><p>Image Generator</p></div>
-                        <div><p>Received images</p></div>
+                        <!--Title box-->
+                        <div class="title-box">
+                            <h2>Box Title</h2>
+                        </div>
+
+                        <!--Image sender box-->
+                        <div class="image-sender">
+
+                            <div class="title-box">
+                                <p class="">Image Generator</p>
+                            </div>
+
+                            <div id="image-container" class="image-container">
+                                <img id="placeholder-image" src="" alt="">
+                            </div>
+
+                            <button id="new-button" onclick="newImage()"> New image </button>
+
+                            <form>
+                                <label for="email">Enter an email:</label>
+                                <input type="email" id="email" name="email"><br><br>
+                                <button id="add-email" onclick="addEmail()"> Add Email </button>
+                            </form>
+
+
+                            <select name="email-list" id="email-list">
+                                <option value="" disabled selected>Email required</option>
+                            </select>
+                        </div>
+
+                        <!--Images received box-->
+                        <div class="image-receiver">
+                            <p>Received images</p>
+                        </div>
                     </div>
                 </div>   <!--End of inner tag-->
                 <!--Footer-->
@@ -43,11 +74,12 @@
                         <a class="nav-link" href="coding-examples.html"><h2>Coding Examples</h2></a>
                         <a class="nav-link" href="scs-scheme.html"><h2>SCS Scheme</h2></a>
                         <a class="nav-link" href="#contact-me"><h2>Contact Me</h2></a>
+                        <a class="nav-link visible-xs" href="../../index.html"><h2>Home</h2></a>
                       </div>
                     </div>
                 </div>
                 </footer> 
             </div> <!--End of main tag.-->
-
+            <script src="js/app.js"></script>
     </body>
 </html>
