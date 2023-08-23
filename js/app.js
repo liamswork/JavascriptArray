@@ -16,6 +16,7 @@ const emailField = document.getElementById('email');
 //The email select dropdown which will be populated after validation of emails.
 const emailSelect = document.getElementById('email-list');
 
+
 //Client ID key, and endpoint link with key interpolated into it.
 const clientID = "T6KWxGFTJusthxNjkZ_VapSy7cBDFYUuNExIrQlnJFQ";
 let endpoint = `https://api.unsplash.com/photos/random/?client_id=${clientID}&count=30`
@@ -82,14 +83,18 @@ function addEmail(event){
         emailSelect.appendChild(newOption);
         emailArray.push(emailInput);
         console.log(emailArray);
+        //Remove disabled option if it exists, so the select index matches the array.
+        var disabledOption = emailSelect.querySelector('option[disabled]');
+        if (disabledOption) {
+            emailSelect.removeChild(disabledOption);
+        }
     }else{
         console.log("INVALID EMAIL")
     }
+
 }
 
 function addImage(event){
 
 }
-
-
 
