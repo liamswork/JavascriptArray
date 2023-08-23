@@ -1,21 +1,21 @@
-//Reference to image element. We will manipulate the SRC and ALT attributes based on the json list of objects.
-const imageElement = document.getElementById('placeholder-image');
-//Reference to add email button. Add listener and pass event to prevent default behaviour later.
+//Event listeners
 const emailButton = document.getElementById('add-email');
 emailButton.addEventListener('click', function(event) {
     addEmail(event);
 });
-
 const addImageButton = document.getElementById('add-image');
 addImageButton.addEventListener('click', function(event) {
     addImage(event);
 });
 
+//Reference to image element. We will manipulate the SRC and ALT attributes based on the json list of objects.
+const imageElement = document.getElementById('placeholder-image');
 //Reference to the email input field, we will take the value and add to the email select when validated.
 const emailField = document.getElementById('email');
 //The email select dropdown which will be populated after validation of emails.
 const emailSelect = document.getElementById('email-list');
-
+//Reference to the status text
+const statusText = document.getElementById('status');
 
 //Client ID key, and endpoint link with key interpolated into it.
 const clientID = "T6KWxGFTJusthxNjkZ_VapSy7cBDFYUuNExIrQlnJFQ";
@@ -26,8 +26,7 @@ let imageIndex = 0;
 //Image list which holds onto the 30 results fetched from upsplash.
 let imageList = [];
 //Email array
-let emailArray = [];
-
+let userArray = [];
 
 //Fetch initial list of images. Call this function whenever we exhaust the list of 30 images. Disable this line when not working on JS functionality
 //As there is a fetchlimit of 50 requests per hour.
@@ -78,23 +77,99 @@ function addEmail(event){
     let emailInput = emailField.value;
 
     if(isValidEmail(emailInput)){
+        if(isUniqueEmail(emailInput)){
+        //Create new select option
         let newOption = document.createElement('option');
         newOption.textContent = emailInput;
         emailSelect.appendChild(newOption);
-        emailArray.push(emailInput);
-        console.log(emailArray);
+        createUser(emailInput);
         //Remove disabled option if it exists, so the select index matches the array.
         var disabledOption = emailSelect.querySelector('option[disabled]');
         if (disabledOption) {
             emailSelect.removeChild(disabledOption);
         }
+        updateStatus("Email added!", "success");
+        }else{
+            updateStatus("Duplicate email", "error");
+        }
     }else{
-        console.log("INVALID EMAIL")
+        updateStatus("Invalid email format", "error");
+    }
+}
+
+//Adds image to Currently selected email.
+function addImage(event){
+    event.preventDefault();
+    //Currently selected context variables.
+    const selectedIndex = emailSelect.selectedIndex;
+    const selectedEmail = emailSelect.options[selectedIndex].value;
+    const selectedEmailObj = userArray.find(obj => obj.email === selectedEmail)
+    const imageUrl = imageList[imageIndex].urls.regular;
+    
+    if(selectedEmailObj){
+        if(isUniqueImage(selectedEmailObj,imageUrl)){
+            selectedEmailObj.images.push(imageUrl);
+            updateStatus("New image added!", "success");
+        }else{
+            updateStatus("Duplicate image", "error")
+        }
+    }
+}
+
+//Creates a new user object, taking the email as a parameter.
+function createUser(uemail){
+    var newuser = {
+        email: `${uemail}`,
+        images: []
+    };
+    userArray.push(newuser);
+    console.log(newuser);
+    updateStatus("New email added!", "success");
+}
+
+//Checks to see if any of the user objects contains the supplied email.
+function isUniqueEmail(uemail){
+    if(userArray.length > 0){
+        var isUnique = true;
+        userArray.forEach(function(emailObj){
+            if(emailObj.email === uemail){
+                isUnique = false;
+            }
+        });
+        return isUnique;
+    }else{
+        return true;
+    }
+}
+
+//Checks to see if the image is assigned to the current email.
+function isUniqueImage(obj,urlToCheck){
+    var isUnique = true;
+    obj.images.forEach(function(url){
+        if(url === urlToCheck){
+            isUnique = false
+        }
+    });
+    return isUnique;
+}
+
+//Pass a status message to this function, and it will update the status text.
+//May possibly take a second parameter "state", for error/success. Colours depending on argument passed.
+function updateStatus(statusMessage, style){
+
+    if(style){
+        if(style === "error"){
+            statusText.style.color = "red";
+        }else if(style === "success"){
+            statusText.style.color = "green";
+        }else{
+            statusText.style.color = "blue";
+            statusText.innerHTML = "UNRECOGNISED ERROR TYPE.";
+            console.log("Unrecognised style passed: ", style);
+        }
+    }else{
+        statusText.style.color = "white";
     }
 
+    statusText.innerHTML = statusMessage;
 }
-
-function addImage(event){
-
-}
-
