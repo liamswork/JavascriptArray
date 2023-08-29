@@ -2,21 +2,36 @@
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0 5px;
 
     button{
         margin:10px 0;
         color:red;
-        width:50%
+        width:48%;
+        max-width:300px;
+    }
+
+    #new-image{
+        margin-right:10px;
+        @media(max-width:290px){
+            margin-right:3px;
+        }
     }
 
     form{
-        width:100%
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: center;
     }
     
     select{
         text-align: center;
         color:black;
-        width:50%;
+        width:100%;
+        max-width:300px;
         option{
             color:black;
         }
@@ -29,8 +44,12 @@
     #email{
         width:100%;
         color:black;
+        max-width:300px;
+        
     }
     #add-email{
+        width:100%;
+        max-width:300px;
         color:red;
         margin-bottom:10px;
     }

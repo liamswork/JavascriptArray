@@ -105,13 +105,15 @@ function addImage(event){
     const selectedEmail = emailSelect.options[selectedIndex].value;
     const selectedEmailObj = userArray.find(obj => obj.email === selectedEmail)
     const imageUrl = imageList[imageIndex].urls.regular;
-    
+    if(userArray.length === 0){
+        updateStatus("Please add an email to begin.", "error");
+    }
     if(selectedEmailObj){
         if(isUniqueImage(selectedEmailObj,imageUrl)){
             selectedEmailObj.images.push(imageUrl);
             updateStatus("New image added!", "success");
         }else{
-            updateStatus("Duplicate image", "error")
+            updateStatus("Duplicate image.", "error")
         }
     }
 }
@@ -170,6 +172,9 @@ function updateStatus(statusMessage, style){
     }else{
         statusText.style.color = "white";
     }
-
     statusText.innerHTML = statusMessage;
+}
+
+function updateImages{
+    
 }
