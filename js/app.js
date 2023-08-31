@@ -9,13 +9,17 @@ document.addEventListener("DOMContentLoaded", function() {
     addImageButton.addEventListener('click', function(event) {
         addImage(event);
     });
-
     const newImageButton = document.getElementById('new-image');
     newImageButton.addEventListener('click', function(event) {
         newImage(event);
     });
+    const helpButton = document.getElementById('help');
+    helpButton.addEventListener('click', function(event) {
+        toggleHelp(event);
+    });
 
-  
+
+
 
     //Reference to image element. We will manipulate the SRC and ALT attributes based on the json list of objects.
     const imageElement = document.getElementById('placeholder-image');
@@ -25,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const emailSelect = document.getElementById('email-list');
     //Reference to the status text
     const statusText = document.getElementById('status');
-    //Reference to receieved image container to append images to
-    const receivedContainer = document.getElementById('received');
+    //Reference to image element. We will manipulate the SRC and ALT attributes based on the json list of objects.
+    const mainContainer = document.getElementById('main-container');
 
     //Client ID key, and endpoint link with key interpolated into it.
     const clientID = "T6KWxGFTJusthxNjkZ_VapSy7cBDFYUuNExIrQlnJFQ";
@@ -83,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function() {
     //If validation is successful, the email is added to an array of emails accessible by a dropdown menu.
     //If unsuccessful, an error message is added.
     function addEmail(event){
-        //Prevent page refresh
         event.preventDefault();
         //Update emailInput value with current field value.
         let emailInput = emailField.value;
@@ -93,7 +96,9 @@ document.addEventListener("DOMContentLoaded", function() {
             //Create new select option
             let newOption = document.createElement('option');
             newOption.textContent = emailInput;
+            newOption.value = emailInput;
             emailSelect.appendChild(newOption);
+            emailSelect.value = emailInput;
             createUser(emailInput);
             //Remove disabled option if it exists, so the select index matches the array.
             var disabledOption = emailSelect.querySelector('option[disabled]');
@@ -124,7 +129,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 if(isUniqueImage(selectedEmailObj,imageUrl)){
                     selectedEmailObj.images.push(imageUrl);
                     updateStatus("New image added!", "success");
-                    updateImages(imageUrl);
+                    /*updateImages(imageUrl,selectedIndex);*/
+                    updateImages(selectedIndex);
                 }else{
                     updateStatus("Duplicate image.", "error")
                 }
@@ -133,15 +139,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    //Creates a new user object, taking the email as a parameter.
-    function createUser(uemail){
-        var newuser = {
-            email: `${uemail}`,
-            images: []
-        };
-        userArray.push(newuser);
-        console.log(newuser);
-        updateStatus("New email added!", "success");
+    function updateImages(boxindex){
+        //Clear current box
+        const currentBox = document.getElementById(`box-${boxindex}`);
+        currentBox.innerHTML = '';
+
+        const currentUser = userArray[boxindex];
+
+        //Loop each image within user
+        for(let j = 0; j < currentUser.images.length; j++){
+            console.log("Updating image " + j);
+            const newImg = document.createElement("img");
+            newImg.src = currentUser.images[j];
+            currentBox.appendChild(newImg);
+            newImg.addEventListener('click', 
+            function(){
+                removeImage(j,currentUser)
+            });
+        }
+        
+    }
+
+    function removeImage(jindex,user) {
+        const test =userArray.indexOf(user);
+        user.images.splice(jindex, 1);
+        updateImages(test);
+        updateStatus("Image removed!", "success")
     }
 
     //Checks to see if any of the user objects contains the supplied email.
@@ -170,15 +193,22 @@ document.addEventListener("DOMContentLoaded", function() {
         return isUnique;
     }
 
-    //Pass a status message to this function, and it will update the status text.
-    //May possibly take a second parameter "state", for error/success. Colours depending on argument passed.
+    //Pass a status message to this function, and it will update the status text. Second parameter determines colour of message. Current accepts "error" and "success"
     function updateStatus(statusMessage, style){
 
         if(style){
             if(style === "error"){
                 statusText.style.color = "red";
+                statusText.classList.add("updated-error");
+                setTimeout(function() {
+                    statusText.classList.remove("updated-error");
+                }, 500);
             }else if(style === "success"){
                 statusText.style.color = "green";
+                statusText.classList.add("updated-success");
+                setTimeout(function() {
+                    statusText.classList.remove("updated-success");
+                }, 750);
             }else{
                 statusText.style.color = "blue";
                 statusText.innerHTML = "UNRECOGNISED ERROR TYPE.";
@@ -188,15 +218,33 @@ document.addEventListener("DOMContentLoaded", function() {
             statusText.style.color = "white";
         }
         statusText.innerHTML = statusMessage;
+ 
     }
 
-    function updateImages(src){
-        const newImg = document.createElement("img");
-
-        newImg.src = src;
-        //img.alt = 
-        console.log(newImg);
-        receivedContainer.appendChild(newImg);
+    //Creates a new user object, taking the email as a parameter.
+    function createUser(uemail, uindex){
+        var newuser = {
+            email: `${uemail}`,
+            images: []
+        };
+        userArray.push(newuser);
+        console.log(newuser);
+        updateStatus("New email added!", "success");
+        mainContainer.insertAdjacentHTML(
+            'beforeend',
+            `<!--Images received box-->
+            <div class="image-receiver">
+                <p>${uemail}</p>
+                <div class="received-container" id="box-${userArray.length - 1}">
+    
+                </div>
+            </div>`
+        );
     }
 
+    function toggleHelp(){
+        const tooltipdisplay = document.getElementById('tooltiptext');
+        tooltipdisplay.classList.toggle("tooltip-shown");
+        console.log("toggling help display");
+    }
 });

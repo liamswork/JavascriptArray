@@ -4,9 +4,17 @@
     justify-content: center;
     padding: 0 5px;
 
+    button, input, select{
+        background-color: #422369;
+        outline:none;
+        border:2px solid darken($color-primary, 4%);
+        color:white;
+        padding:5px;
+        border-radius: 6px;
+    }
+
     button{
         margin:10px 0;
-        color:red;
         width:48%;
         max-width:300px;
     }
@@ -29,28 +37,25 @@
     
     select{
         text-align: center;
-        color:black;
         width:100%;
         max-width:300px;
-        option{
-            color:black;
-        }
+        margin-bottom:25px;
     }
 }
 
 
 
 .image-sender{
+    margin-bottom:30px;
     #email{
         width:100%;
-        color:black;
         max-width:300px;
         
     }
     #add-email{
         width:100%;
         max-width:300px;
-        color:red;
+        color:white;
         margin-bottom:10px;
     }
     input{

@@ -1,9 +1,26 @@
 .image-receiver{
+    margin-bottom:50px;
     .received-container{
-        background-color: red;
         img{
             width:100px;
             height:100px;
+            margin:5px;
+
+            @media(min-width:768px){
+                width:150px;
+                height:150px;
+                margin:10px;
+            }
+            @media(min-width:992px){
+                width:175px;
+                height:175px;
+                margin:15px;
+            }
+            @media(min-width:1260px){
+                width:200px;
+                height:200px;
+                margin:20px;
+            }
         }
     }
 }
