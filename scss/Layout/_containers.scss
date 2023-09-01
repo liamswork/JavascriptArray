@@ -33,6 +33,7 @@
       width:100%;
       box-shadow: #09070a 0px 0px 5px 2px;
 
+      //Prevents last div from being cut off by footer.
       &:last-child{
         margin-bottom:50px !important;
       }
