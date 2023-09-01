@@ -1,37 +1,7 @@
-////////////////BASE, DEFAULTS, FONTS, VARIABLES//////////////
 //Base webpage colours
 $color-primary:#110d16;
 $color-secondary:#1c0f2c;
 $color-tertiary:#3a3939;
-//Social media colours
-$color-facebook:#3b5998;
-$color-linkedin:#0077b5;
-$color-twitter:#00aced;
-$color-instagram:#d93175;
-$color-google:#4387f6;
-$color-trustpilot:#00b67b;
-
-//Colour theme map, needed for class colour mixins.
-$color-themes: (
-  primary: (
-    software:         #67809f,
-    it:               #4183d7,
-    digital:          #2ecc71,
-    telecoms:         #d64541,
-    web:              #926fb1,
-    security:         #f62459,
-    developer-course: #ce4125
-  ),
-  darken: (
-    software:         #526781,
-    it:               #286abd,
-    digital:          #25a25a,
-    telecoms:         #bc2c28,
-    web:              #79539a,
-    security:         #de093f,
-    developer-course: #a3331d
-  )
-);
 
 //Primary font include
 @font-face {
@@ -39,7 +9,6 @@ $color-themes: (
   src: url('../fonts/poppins-v15-latin-regular.woff2') format('woff2'),
        url('../fonts/poppins-v15-latin-600italic.woff2') format('woff2');
 }
-
 
 //Status error/success styles. These produce a glow, that is removed after a delay in JS.
 .updated-error{
