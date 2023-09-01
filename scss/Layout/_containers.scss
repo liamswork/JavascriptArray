@@ -28,9 +28,14 @@
       background-color: $color-primary;
       border-radius: 10px;
       padding:15px 5px;
+      margin-bottom:20px;
       height:100%;
       width:100%;
       box-shadow: #09070a 0px 0px 5px 2px;
+
+      &:last-child{
+        margin-bottom:50px !important;
+      }
 
       //Boxes that are not the title box, e.g. the sender/receiver
       &:not(.title-box){
@@ -39,7 +44,7 @@
         height:100%;
         justify-content:initial;
 
-        //Image container, only found within the receiver.
+        //Image container, only found within the sender.
         .image-container{
           img{
             width:250px;
